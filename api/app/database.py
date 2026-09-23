@@ -11,10 +11,12 @@ using sqlalchemy.
 from collections.abc import Iterator
 
 from sqlalchemy import URL, create_engine
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import DeclarativeBase, Session
 
 from app.config import settings
 
+class Base(DeclarativeBase):
+    pass
 
 database_url = URL.create(
     drivername="postgresql+psycopg",

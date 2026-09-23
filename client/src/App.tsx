@@ -1,43 +1,74 @@
-import { Link, Route, Routes, useParams } from "react-router";
-
-function HomePage() {
-  return <h1 className="text-2xl font-semibold">Home</h1>;
-}
-
-function StockPage() {
-  const { symbol } = useParams();
-
-  return (
-    <h1 className="text-2xl font-semibold">
-      Stock: {symbol}
-    </h1>
-  );
-}
-
-function SettingsPage() {
-  return <h1 className="text-2xl font-semibold">Settings</h1>;
-}
+import { useEffect } from "react"
+import { Link, NavLink, useLocation } from "react-router"
+import AppRoutes from "./routes"
+import "./site.css"
 
 export default function App() {
-  return (
-    <div className="mx-auto max-w-4xl p-6">
-      <nav
-        aria-label="Main navigation"
-        className="mb-8 flex gap-6 border-b pb-4"
-      >
-        <Link to="/">Home</Link>
-        <Link to="/stocks/AAPL">Apple</Link>
-        <Link to="/settings">Settings</Link>
-      </nav>
+  const { pathname } = useLocation()
+  const isLanding = pathname === "/"
 
-      <main>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/stocks/:symbol" element={<StockPage />} />
-          <Route path="/settings" element={<SettingsPage />} />
-          <Route path="*" element={<h1>Page not found</h1>} />
-        </Routes>
+  useEffect(() => {
+    window.scrollTo(0, 0)
+    const title =
+      pathname === "/"
+        ? "Research with perspective"
+        : pathname === "/home"
+          ? "Home"
+          : pathname === "/settings"
+            ? "Settings"
+            : pathname.startsWith("/stocks/")
+              ? "Company research"
+              : "Page not found"
+    document.title = `${title} | Triglobe`
+  }, [pathname])
+
+  return (
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      <header className="site-header">
+        <Link className="brand" to="/" aria-label="Triglobe landing page">
+          <img
+            className="brand-logo"
+            src="/triglobe-logo.svg"
+            alt=""
+            width={34}
+            height={32}
+          />
+          <span>
+            triglobe<span className="brand-dot">.</span>
+          </span>
+        </Link>
+        <nav aria-label="Main navigation" className="site-nav">
+          {isLanding ? (
+            <>
+              <a className="nav-link" href="#perspectives">
+                Our focus
+              </a>
+              <Link className="button button-primary button-small" to="/home">
+                Open workspace <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </>
+          ) : (
+            <>
+              <NavLink className="nav-link" to="/home">
+                Home
+              </NavLink>
+              <NavLink className="nav-link" to="/settings">
+                Settings
+              </NavLink>
+            </>
+          )}
+        </nav>
+      </header>
+      <main id="main-content" className="site-main" tabIndex={-1}>
+        <AppRoutes />
       </main>
+      <footer className="site-footer">
+        <span>Triglobe Research &amp; Analytics</span>
+        <span>Politics. Business. Nations.</span>
+      </footer>
     </div>
-  );
+  )
 }
