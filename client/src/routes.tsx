@@ -1,4 +1,7 @@
 import { Link, Route, Routes, useParams } from "react-router"
+import RequireAuth from "./auth/RequireAuth"
+import { useAuth } from "./auth/auth-context"
+import AuthPage from "./pages/AuthPage"
 import HomePage from "./pages/HomePage"
 import LandingPage from "./pages/LandingPage"
 
@@ -20,12 +23,13 @@ function StockPage() {
 }
 
 function SettingsPage() {
+  const { user } = useAuth()
   return (
     <section className="page-intro">
       <p className="eyebrow">Your workspace</p>
       <h1>Settings</h1>
       <p className="intro-copy">
-        Workspace preferences will be available here as Triglobe grows.
+        Signed in as <strong>{user?.email}</strong>.
       </p>
       <Link className="text-link" to="/home">
         Back to home &rarr;
@@ -38,9 +42,19 @@ export default function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<LandingPage />} />
-      <Route path="/home" element={<HomePage />} />
-      <Route path="/stocks/:symbol" element={<StockPage />} />
-      <Route path="/settings" element={<SettingsPage />} />
+      <Route
+        path="/sign-in"
+        element={<AuthPage key="sign-in" mode="sign-in" />}
+      />
+      <Route
+        path="/sign-up"
+        element={<AuthPage key="sign-up" mode="sign-up" />}
+      />
+      <Route element={<RequireAuth />}>
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/stocks/:symbol" element={<StockPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
+      </Route>
       <Route
         path="*"
         element={

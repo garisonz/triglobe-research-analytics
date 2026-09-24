@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480" fill="none">
+  <title>Minimal balanced scales</title>
+  <!-- Equal arms and open suspension lines express measured economic analysis. -->
+  <g stroke="#383838" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M240 95V367 M105 150H375"/>
+    <circle cx="240" cy="150" r="10" fill="#eaeaea"/>
+    <path d="M130 150 80 268 M130 150 180 268 M350 150 300 268 M350 150 400 268"/>
+    <path d="M80 268H180C172 312 88 312 80 268Z M300 268H400C392 312 308 312 300 268Z" fill="#d8d8d8"/>
+    <!-- A single quiet plinth balances the two bowls. -->
+    <path d="M181 367H299L316 385H164Z" fill="#eaeaea"/>
+  </g>
+</svg>

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="480" height="480" viewBox="0 0 480 480" fill="none">
+  <title>Minimal classical civic building</title>
+  <!-- A broad pediment and three unfluted columns keep the civic silhouette clear. -->
+  <g stroke="#383838" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M85 195 240 96 395 195Z" fill="#eaeaea"/>
+    <path d="M145 176 240 115 335 176Z" fill="#d8d8d8" stroke="none"/>
+    <path d="M90 195H390V213H90Z" fill="#eaeaea"/>
+    <path d="M121 213H161V353H121Z M220 213H260V353H220Z M319 213H359V353H319Z" fill="#eaeaea"/>
+    <!-- Two shallow steps anchor the building without decorative detail. -->
+    <path d="M97 353H383V371H97Z M80 371H400V389H80Z" fill="#eaeaea"/>
+  </g>
+</svg>
