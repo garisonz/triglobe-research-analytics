@@ -127,12 +127,14 @@ notes, a north/south scroll indicator, and Three Lenses.
 The Subscribe link opens the existing free account registration page; no mailing
 list integration has been added. English is currently the only language.
 
-The hero globe uses the original artwork; the three supporting illustrations
-use the minimal set. Both have editable SVG sources. The original
-editorial illustrations are preserved in `public/images/archive/editorial-v1/`;
-set `illustrationStyle` to `"original"` in `src/lib/illustrations.ts` to restore them. See the
-[image replacement checklist](public/images/README.md) for every filename,
-suggested dimensions, transparency requirements, and art direction.
+The hero globe uses the original artwork. Its PNG and editable SVG source remain
+in `public/images/archive/editorial-v1/`, alongside the archived coin and figure.
+Three Lenses uses the supplied SVG Repo files directly from `public/images/`:
+`building-columns-fill-svgrepo-com.svg` for Politics,
+`scale-unbalanced-svgrepo-com.svg` for Business, and `compass-svgrepo-com.svg` for
+Nations. The previous lens PNGs and SVG sources have been removed from the active
+set and archive. See the [illustration notes](public/images/README.md) for asset
+paths, hero dimensions, and the provenance metadata present in the supplied files.
 
 Motion uses transform/opacity animations and frame-throttled scroll updates.
 `prefers-reduced-motion` disables entrances and parallax. Navigation

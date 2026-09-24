@@ -45,7 +45,7 @@ for (const width of [375, 320]) {
       )
     ).toBe(true)
 
-    // Visit each lazy image so the check includes the lens illustrations.
+    // Check that the remaining artwork loads and has alt text.
     for (const image of await page.locator("main img").all()) {
       await image.scrollIntoViewIfNeeded()
       await expect

@@ -1,22 +1,21 @@
 import type { CSSProperties } from "react"
 import { Link } from "react-router"
 import { useHeroParallax } from "../hooks/useHeroParallax"
-import { illustrationPath } from "../lib/illustrations"
 
 const lenses = [
   {
     id: "politics",
     number: "01",
     title: "Politics",
-    image: "politics.png",
-    alt: "Illustration of a classical government building",
+    image: "/images/building-columns-fill-svgrepo-com.svg",
+    alt: "Classical government building with columns",
     copy: "Power leaves a paper trail. We follow the policies, institutions, and decisions that shape what comes next.",
   },
   {
     id: "business",
     number: "02",
     title: "Business",
-    image: "business.png",
+    image: "/images/scale-unbalanced-svgrepo-com.svg",
     alt: "Balance scales representing business and trade",
     copy: "No company exists in isolation. We place markets and enterprise within the wider currents of the world.",
   },
@@ -24,8 +23,8 @@ const lenses = [
     id: "nations",
     number: "03",
     title: "Nations",
-    image: "nations.png",
-    alt: "Compass illustration",
+    image: "/images/compass-svgrepo-com.svg",
+    alt: "Compass representing nations and global connections",
     copy: "Borders tell only part of the story. We explore the economies, histories, and relationships that connect us.",
   },
 ]
@@ -67,10 +66,10 @@ export default function LandingPage() {
               <span>ANALYTICS</span>
             </h1>
           </div>
-          {/* Transparent cutouts overlap the type. Replacement specifications live in public/images/README.md. */}
+          {/* The transparent globe overlaps the type. Replacement specifications live in public/images/README.md. */}
           <div className="collage-layer hero-globe" data-parallax="0.13">
             <img
-              src={illustrationPath("hero-globe.png", "original")}
+              src="/images/archive/editorial-v1/hero-globe.png"
               alt="Vintage globe wrapped in a folded newspaper and tied with string"
               width="1200"
               height="1400"
@@ -129,11 +128,13 @@ export default function LandingPage() {
               <div className="lens-masthead">
                 <span className="item-number">({lens.number})</span>
                 <img
-                  src={illustrationPath(lens.image)}
+                  className={`lens-icon lens-icon-${lens.id}`}
+                  src={lens.image}
                   alt={lens.alt}
-                  width="480"
-                  height="480"
+                  width="96"
+                  height="96"
                   loading="lazy"
+                  decoding="async"
                 />
               </div>
               <h3>{lens.title}</h3>
@@ -144,7 +145,6 @@ export default function LandingPage() {
       </section>
 
       <aside className="editorial-invitation">
-        <p className="handwritten">Stay curious.</p>
         <h2>
           The world is connected.
           <br />

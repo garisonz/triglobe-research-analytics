@@ -389,7 +389,7 @@
     opacity: 1;
   }
 }
-/* Editorial sections: open margins, rules, and square image frames. */
+/* Editorial sections: open margins and fine rules. */
 .lenses-section {
   padding: 75px 0 80px;
   border-top: 1px solid var(--site-line);
@@ -436,9 +436,10 @@
 }
 .lens-masthead {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   justify-content: space-between;
-  height: 125px;
+  gap: 20px;
+  min-height: 104px;
   margin-bottom: 22px;
 }
 .item-number {
@@ -446,11 +447,19 @@
   font-size: 17px;
   font-style: italic;
 }
-.lens-masthead img {
-  width: 124px;
-  height: 124px;
+.lens-icon {
+  width: 96px;
+  height: auto;
+  aspect-ratio: 1;
   object-fit: contain;
-  margin-right: 14%;
+  flex-shrink: 0;
+}
+/* Balance the SVGs' different internal margins without changing the supplied artwork. */
+.lens-icon-politics {
+  width: 80px;
+}
+.lens-icon-business {
+  width: 104px;
 }
 .lens h3 {
   font-size: 42px;
@@ -906,16 +915,6 @@
     border-top: 1px solid var(--site-line);
     padding: 27px 0;
   }
-  .lens-masthead {
-    float: right;
-    width: 125px;
-    margin: 0 0 15px 20px;
-  }
-  .lens-masthead img {
-    width: 92px;
-    height: 110px;
-    margin: 0;
-  }
   .lens > p {
     max-width: 38ch;
   }
@@ -1036,13 +1035,6 @@
   }
   .lens > p {
     font-size: 21px;
-  }
-  .lens-masthead {
-    width: 92px;
-    margin-left: 12px;
-  }
-  .lens-masthead .item-number {
-    display: none;
   }
   .site-footer {
     flex-direction: column;
