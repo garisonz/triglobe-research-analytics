@@ -2,6 +2,7 @@ import { useState } from "react"
 import type { FormEvent } from "react"
 import { ArrowUpRight, Search } from "lucide-react"
 import { Link, useNavigate } from "react-router"
+import "./HomePage.css"
 
 const companies = [
   { symbol: "AAPL", name: "Apple", sector: "Technology" },
@@ -27,24 +28,26 @@ export default function HomePage() {
   return (
     <div className="home-page">
       <section className="home-intro" aria-labelledby="home-title">
-        <p className="eyebrow">
-          <span className="status-dot" /> Your research workspace
+        <p className="home-eyebrow">
+          <span className="home-status-dot" /> Your research workspace
         </p>
-        <h1 id="home-title">Start with a question.</h1>
-        <p className="intro-copy">
+        <h1 id="home-title" className="home-title">
+          Start with a question.
+        </h1>
+        <p className="home-intro-copy">
           Make room for a little perspective. What will you explore today?
         </p>
       </section>
-      <section className="search-panel" aria-labelledby="search-title">
-        <div>
-          <p className="eyebrow">Company research</p>
+      <section className="home-search" aria-labelledby="search-title">
+        <div className="home-search-copy">
+          <p className="home-eyebrow">Company research</p>
           <h2 id="search-title">Find your starting point.</h2>
           <p>Open a company workspace using its stock ticker.</p>
         </div>
-        <form className="company-search" onSubmit={handleSearch} noValidate>
+        <form className="home-search-form" onSubmit={handleSearch} noValidate>
           <label htmlFor="company-symbol">Stock ticker</label>
-          <div className="search-controls">
-            <div className="search-input-wrap">
+          <div className="home-search-controls">
+            <div className="home-search-input">
               <Search size={18} aria-hidden="true" />
               <input
                 id="company-symbol"
@@ -63,34 +66,34 @@ export default function HomePage() {
                 aria-describedby={error ? "search-error" : "search-hint"}
               />
             </div>
-            <button className="button button-primary" type="submit">
+            <button className="home-search-button" type="submit">
               Explore <ArrowUpRight size={17} aria-hidden="true" />
             </button>
           </div>
-          <p id="search-hint" className="field-hint">
+          <p id="search-hint" className="home-field-hint">
             Company pages are a preview. Live data is not connected yet.
           </p>
           {error && (
-            <p id="search-error" className="field-error" role="alert">
+            <p id="search-error" className="home-field-error" role="alert">
               {error}
             </p>
           )}
         </form>
       </section>
-      <section className="company-section" aria-labelledby="companies-title">
-        <div className="section-heading inline-heading">
+      <section className="home-companies" aria-labelledby="companies-title">
+        <div className="home-section-heading">
           <h2 id="companies-title">A few places to begin</h2>
-          <span className="section-caption">Company shortcuts</span>
+          <span className="home-section-caption">Company shortcuts</span>
         </div>
-        <div className="company-grid">
+        <div className="home-company-grid">
           {companies.map(({ symbol: ticker, name, sector }) => (
             <Link
-              className="company-card"
+              className="home-company-card"
               to={`/stocks/${ticker}`}
               key={ticker}
             >
-              <div className="company-card-top">
-                <span className="ticker">{ticker}</span>
+              <div className="home-company-card-top">
+                <span className="home-ticker">{ticker}</span>
                 <ArrowUpRight size={18} aria-hidden="true" />
               </div>
               <h3>{name}</h3>
@@ -99,15 +102,15 @@ export default function HomePage() {
           ))}
         </div>
       </section>
-      <aside className="workspace-note">
-        <span className="note-mark" aria-hidden="true">
+      <aside className="home-note">
+        <span className="home-note-mark" aria-hidden="true">
           ↗
         </span>
         <p>
           <strong>A wider lens.</strong> Good research connects companies with
           the politics and nations around them.
         </p>
-        <Link className="text-link" to="/">
+        <Link className="home-note-link" to="/">
           About Triglobe <ArrowUpRight size={16} aria-hidden="true" />
         </Link>
       </aside>

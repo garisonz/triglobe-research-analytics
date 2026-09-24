@@ -5,6 +5,13 @@ import { Link, Navigate, useLocation, useNavigate } from "react-router"
 import { getReturnTo, useAuth } from "../auth/auth-context"
 import { SessionStatus } from "../auth/RequireAuth"
 import { ApiError, apiRequest } from "../lib/api"
+import { eyebrow, fieldError, introCopy, primaryButton } from "../lib/styles"
+import { cn } from "../lib/utils"
+
+const inputClass =
+  "min-h-12 w-full min-w-0 rounded-none border border-[#999] bg-[#f3f3f3] px-3 py-2.5 text-[20px] aria-invalid:border-2 aria-invalid:border-ink"
+const fieldClass = "mb-[21px]"
+const labelClass = "mb-[9px] block text-[19px]"
 
 export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
   const signingUp = mode === "sign-up"
@@ -62,38 +69,55 @@ export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
   }
 
   return (
-    <section className="auth-page" aria-labelledby="auth-title">
-      <div className="auth-intro">
-        <p className="eyebrow">
-          <span className="status-dot" /> A broader perspective
+    <section
+      className="grid grid-cols-[1fr_minmax(0,440px)] items-center gap-[90px] pt-[82px] pb-24 max-laptop:gap-10 max-tablet:mx-auto max-tablet:max-w-[520px] max-tablet:grid-cols-1 max-tablet:pt-[50px] max-tablet:pb-[70px]"
+      aria-labelledby="auth-title"
+    >
+      <div>
+        <p className={eyebrow}>
+          <span className="size-[5px] shrink-0 rounded-full bg-ink" /> A broader
+          perspective
         </p>
-        <h1 id="auth-title">
+        <h1
+          id="auth-title"
+          className="my-[25px] text-[clamp(48px,5.8vw,82px)] leading-[1.04] tracking-[-1.8px] whitespace-pre-line max-phone:text-[51px]"
+        >
           {signingUp
             ? "A little curiosity.\nA wider world."
             : "Welcome back.\nFind your perspective."}
         </h1>
-        <p className="intro-copy">
+        <p className={cn(introCopy, "max-w-[460px]")}>
           {signingUp
             ? "Create your account and start connecting the companies, politics, and nations shaping our world."
             : "Sign in to return to your research workspace and keep exploring the bigger picture."}
         </p>
-        <p className="auth-note">Politics. Business. Nations.</p>
+        <p className="mt-10 text-ink-muted italic max-tablet:hidden">
+          Politics. Business. Nations.
+        </p>
       </div>
-      <div className="auth-card">
-        <h2>{signingUp ? "Create an account" : "Sign in to Triglobe"}</h2>
-        <p className="auth-card-copy">
+      <div className="min-w-0 border border-[#bdbdbd] bg-paper p-8 max-phone:p-6">
+        <h2 className="text-[40px] leading-[1.1] tracking-[-0.8px] max-phone:text-[36px]">
+          {signingUp ? "Create an account" : "Sign in to Triglobe"}
+        </h2>
+        <p className="mt-3 mb-7 text-[21px] text-ink-muted">
           {signingUp ? "Your research starts here." : "Good to have you here."}
         </p>
         {registered && !signingUp && (
-          <p className="auth-success" role="status">
+          <p
+            className="mb-[22px] border border-[#999] bg-[#f4f4f4] p-3.5 text-[19px] leading-[1.4]"
+            role="status"
+          >
             Your account is ready. Sign in to open your workspace.
           </p>
         )}
         <form onSubmit={submit} aria-busy={pending}>
-          <fieldset disabled={pending}>
-            <div className="auth-field">
-              <label htmlFor="email">Email address</label>
+          <fieldset className="min-w-0" disabled={pending}>
+            <div className={fieldClass}>
+              <label className={labelClass} htmlFor="email">
+                Email address
+              </label>
               <input
+                className={inputClass}
                 id="email"
                 name="email"
                 type="email"
@@ -107,10 +131,13 @@ export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
                 placeholder="you@example.com"
               />
             </div>
-            <div className="auth-field">
-              <label htmlFor="password">Password</label>
-              <div className="password-input">
+            <div className={fieldClass}>
+              <label className={labelClass} htmlFor="password">
+                Password
+              </label>
+              <div className="relative">
                 <input
+                  className={cn(inputClass, "pr-12")}
                   id="password"
                   name="password"
                   type={showPassword ? "text" : "password"}
@@ -124,7 +151,7 @@ export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
                 />
                 <button
                   type="button"
-                  className="password-toggle"
+                  className="absolute top-0.5 right-0.5 grid size-11 place-items-center text-ink-muted"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                   aria-pressed={showPassword}
                   onClick={() => setShowPassword(!showPassword)}
@@ -137,15 +164,21 @@ export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
                 </button>
               </div>
               {signingUp && (
-                <p className="field-hint" id="password-hint">
+                <p
+                  className="mt-2.5 text-[16px] leading-[1.45] text-ink-muted"
+                  id="password-hint"
+                >
                   Use 15–128 characters. A few memorable words work well.
                 </p>
               )}
             </div>
             {signingUp && (
-              <div className="auth-field">
-                <label htmlFor="confirm-password">Confirm password</label>
+              <div className={fieldClass}>
+                <label className={labelClass} htmlFor="confirm-password">
+                  Confirm password
+                </label>
                 <input
+                  className={inputClass}
                   id="confirm-password"
                   name="confirm-password"
                   type={showPassword ? "text" : "password"}
@@ -166,7 +199,7 @@ export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
                 {confirmationError && (
                   <p
                     id="confirmation-error"
-                    className="field-error"
+                    className={fieldError}
                     role="alert"
                   >
                     {confirmationError}
@@ -175,11 +208,14 @@ export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
               </div>
             )}
             {error && (
-              <p className="field-error auth-error" role="alert">
+              <p className={cn(fieldError, "mb-4 leading-[1.45]")} role="alert">
                 {error}
               </p>
             )}
-            <button className="button button-primary auth-submit" type="submit">
+            <button
+              className={cn(primaryButton, "mt-[5px] w-full")}
+              type="submit"
+            >
               {pending
                 ? signingUp
                   ? "Creating account…"
@@ -191,9 +227,13 @@ export default function AuthPage({ mode }: { mode: "sign-in" | "sign-up" }) {
             </button>
           </fieldset>
         </form>
-        <p className="auth-switch">
+        <p className="mt-[25px] text-center text-[19px] leading-normal text-ink-muted">
           {signingUp ? "Already have an account?" : "New to Triglobe?"}{" "}
-          <Link to={signingUp ? "/sign-in" : "/sign-up"} state={{ returnTo }}>
+          <Link
+            className="text-ink underline underline-offset-4"
+            to={signingUp ? "/sign-in" : "/sign-up"}
+            state={{ returnTo }}
+          >
             {signingUp ? "Sign in" : "Create an account"}
           </Link>
         </p>

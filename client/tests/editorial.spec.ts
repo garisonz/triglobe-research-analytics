@@ -1,20 +1,21 @@
 import { expect, test } from "@playwright/test"
 
-test("desktop lens navigation resolves cross-page anchors by keyboard", async ({
+test("desktop lens navigation opens each lens page by keyboard", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 1280, height: 900 })
   await page.goto("/sign-in")
-  const link = page
-    .getByRole("navigation", { name: "Main navigation" })
-    .getByRole("link", { name: "Politics", exact: true })
-  await link.focus()
-  await page.keyboard.press("Enter")
-  await expect(page).toHaveURL(/\/#politics$/)
-  await expect(
-    page.getByRole("heading", { name: "Politics", exact: true })
-  ).toBeInViewport()
-  await expect(link).toHaveAttribute("aria-current", "location")
+  const nav = page.getByRole("navigation", { name: "Main navigation" })
+  for (const lens of ["Politics", "Business", "Nations"]) {
+    const link = nav.getByRole("link", { name: lens, exact: true })
+    await link.focus()
+    await page.keyboard.press("Enter")
+    await expect(page).toHaveURL(new RegExp(`/${lens.toLowerCase()}$`))
+    await expect(
+      page.getByRole("heading", { level: 1, name: lens, exact: true })
+    ).toBeInViewport()
+    await expect(link).toHaveAttribute("aria-current", "page")
+  }
 })
 for (const width of [375, 320]) {
   test(`mobile navigation works without overflow at ${width}px`, async ({
@@ -22,7 +23,7 @@ for (const width of [375, 320]) {
   }) => {
     await page.setViewportSize({ width, height: 812 })
     await page.goto("/sign-in")
-    const menu = page.locator(".menu-toggle")
+    const menu = page.locator('[aria-controls="mobile-navigation"]')
     await menu.click()
     await expect(menu).toHaveAttribute("aria-expanded", "true")
     await page.keyboard.press("Escape")
@@ -34,10 +35,10 @@ for (const width of [375, 320]) {
       .getByRole("navigation", { name: "Mobile navigation" })
       .getByRole("link", { name: "Politics", exact: true })
       .click()
-    await expect(page).toHaveURL(/\/#politics$/)
+    await expect(page).toHaveURL(/\/politics$/)
     await expect(menu).toHaveAttribute("aria-expanded", "false")
     await expect(
-      page.getByRole("heading", { name: "Politics", exact: true })
+      page.getByRole("heading", { level: 1, name: "Politics", exact: true })
     ).toBeInViewport()
     expect(
       await page.evaluate(
@@ -62,9 +63,7 @@ for (const width of [375, 320]) {
   })
 }
 
-test("scroll progress responds while reduced motion disables hero motion", async ({
-  page,
-}) => {
+test("reduced motion disables hero motion", async ({ page }) => {
   await page.setViewportSize({ width: 1280, height: 900 })
   await page.emulateMedia({ reducedMotion: "no-preference" })
   await page.goto("/")
@@ -72,18 +71,10 @@ test("scroll progress responds while reduced motion disables hero motion", async
   await expect
     .poll(() =>
       page
-        .locator(".hero-globe")
+        .getByRole("img", { name: /globe/ })
+        .locator("..")
         .evaluate((element: HTMLElement) =>
           parseFloat(element.style.getPropertyValue("--parallax-y"))
-        )
-    )
-    .toBeGreaterThan(0)
-  await expect
-    .poll(() =>
-      page
-        .locator(".scroll-indicator")
-        .evaluate((element: HTMLElement) =>
-          Number(element.style.getPropertyValue("--scroll-progress"))
         )
     )
     .toBeGreaterThan(0)
@@ -107,19 +98,4 @@ test("scroll progress responds while reduced motion disables hero motion", async
   await expect
     .poll(() => page.evaluate(() => document.getAnimations().length))
     .toBe(0)
-  await page.evaluate(() =>
-    window.scrollTo({
-      top: document.documentElement.scrollHeight,
-      behavior: "instant",
-    })
-  )
-  await expect
-    .poll(() =>
-      page
-        .locator(".scroll-indicator")
-        .evaluate((element: HTMLElement) =>
-          Number(element.style.getPropertyValue("--scroll-progress"))
-        )
-    )
-    .toBe(1)
 })

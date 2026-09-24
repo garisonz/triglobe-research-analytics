@@ -130,3 +130,130 @@
     @apply font-sans;
   }
 }
+
+/* Editorial design tokens. Change only --color-brand to switch the edition's ink. */
+@theme {
+  --color-paper: #eaeaea;
+  --color-ink: #111111;
+  --color-ink-muted: #555555;
+  --color-line: #d4d4d4;
+  --color-pencil: #777777;
+  --color-brand: #008563;
+
+  --font-serif: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-hand: "Reenie Beanie", cursive;
+
+  /* The design's breakpoints, beside Tailwind's defaults. Styles are desktop-first:
+     max-phone ≤540px, max-tablet ≤800px, max-laptop ≤1000px, max-desktop ≤1150px, wide ≥1600px. */
+  --breakpoint-phone: 33.8125rem;
+  --breakpoint-tablet: 50.0625rem;
+  --breakpoint-laptop: 62.5625rem;
+  --breakpoint-desktop: 71.9375rem;
+  --breakpoint-wide: 100rem;
+}
+
+/* Inline, so each hero note reads its own --note-delay. */
+@theme inline {
+  --animate-headline-arrive: headline-arrive 900ms
+    cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  --animate-collage-arrive: collage-arrive 1000ms cubic-bezier(0.2, 0.7, 0.2, 1)
+    300ms both;
+  --animate-note-arrive: note-arrive 500ms ease var(--note-delay) both;
+}
+
+@keyframes headline-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes collage-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(-24px) scale(1.05);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes note-arrive {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Shared gutters for the masthead, main column, and footer. */
+@utility page-width {
+  width: min(1440px, calc(100% - 96px));
+  margin-inline: auto;
+  @variant max-tablet {
+    width: calc(100% - 56px);
+  }
+  @variant max-phone {
+    width: calc(100% - 40px);
+  }
+}
+
+/* A fixed grid behind every route, like longitude and latitude on atlas paper. */
+@utility bg-atlas {
+  background-color: var(--color-paper);
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 184px,
+      var(--color-line) 184px 185px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent 0 184px,
+      var(--color-line) 184px 185px
+    );
+  background-position: center top;
+}
+
+@layer base {
+  :is(a, button, select) {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :is(a, button, input, select, summary):focus-visible {
+    outline: 2px solid var(--color-brand);
+    outline-offset: 5px;
+  }
+  button {
+    cursor: pointer;
+  }
+  button:disabled {
+    cursor: wait;
+    opacity: 0.6;
+  }
+  [id] {
+    scroll-margin-top: 32px;
+  }
+
+  /* The home page and side nav start from browser defaults; style them with utility classes. */
+  .home-page,
+  .side-nav {
+    font: initial;
+    color: initial;
+    -webkit-font-smoothing: auto;
+  }
+
+  /* Reduced motion also disables transform-based scroll effects in the JS hook. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation: none !important;
+      transition: none !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

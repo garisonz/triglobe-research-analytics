@@ -1,0 +1,67 @@
+/*
+ * Home page styles (/home), imported by HomePage.tsx.
+ *
+ * Vite loads plain .css imports globally, so keep every selector under the
+ * home- prefix. Rules here are unlayered, so they override Tailwind classes.
+ * The site's theme variables from index.css are available here:
+ * --color-paper, --color-ink, --color-ink-muted, --color-line, --color-brand,
+ * --font-serif, and --font-hand.
+ */
+
+/* Page */
+.home-page {
+}
+
+/* Intro */
+.home-intro {
+}
+.home-eyebrow {
+}
+.home-status-dot {
+}
+.home-title {
+}
+.home-intro-copy {
+}
+
+/* Company search */
+.home-search {
+}
+.home-search-copy {
+}
+.home-search-form {
+}
+.home-search-controls {
+}
+.home-search-input {
+}
+.home-search-button {
+}
+.home-field-hint {
+}
+.home-field-error {
+}
+
+/* Company shortcuts */
+.home-companies {
+}
+.home-section-heading {
+}
+.home-section-caption {
+}
+.home-company-grid {
+}
+.home-company-card {
+}
+.home-company-card-top {
+}
+.home-ticker {
+}
+
+/* Closing note */
+.home-note {
+}
+.home-note-mark {
+}
+.home-note-link {
+}

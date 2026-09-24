@@ -170,3 +170,24 @@ test("failed sign-out keeps the session visible and allows a retry", async ({
   await page.getByRole("button", { name: "Sign out", exact: true }).click()
   await expect(page).toHaveURL(/\/sign-in$/)
 })
+
+test("the workspace uses its side navigation instead of the landing masthead", async ({
+  page,
+}) => {
+  const email = newEmail()
+  await register(page, email)
+  await signIn(page, email)
+  await expect(page).toHaveURL(/\/home$/)
+  await expect(
+    page.getByRole("navigation", { name: "Main navigation" })
+  ).toHaveCount(0)
+  const sideNav = page.getByRole("navigation", { name: "Workspace navigation" })
+  await expect(
+    sideNav.getByRole("link", { name: "Home", exact: true })
+  ).toHaveAttribute("aria-current", "page")
+  await sideNav.getByRole("link", { name: "Settings", exact: true }).click()
+  await expect(page).toHaveURL(/\/settings$/)
+  await expect(
+    sideNav.getByRole("link", { name: "Settings", exact: true })
+  ).toHaveAttribute("aria-current", "page")
+})
