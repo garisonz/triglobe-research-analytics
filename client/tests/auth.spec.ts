@@ -133,7 +133,7 @@ test("session-check failures have a retry and never display private content", as
     "couldn't check your session"
   )
   await expect(
-    page.getByRole("heading", { name: "Start with a question." })
+    page.getByRole("heading", { name: "Explore the S&P 500." })
   ).toHaveCount(0)
   await page.unroute("**/api/auth/me")
   await page.getByRole("button", { name: "Try again", exact: true }).click()
@@ -164,7 +164,7 @@ test("failed sign-out keeps the session visible and allows a retry", async ({
   await page.getByRole("button", { name: "Sign out", exact: true }).click()
   await expect(page.getByRole("alert")).toContainText("Unable to reach")
   await expect(
-    page.getByRole("heading", { name: "Start with a question." })
+    page.getByRole("heading", { name: "Explore the S&P 500." })
   ).toBeVisible()
   await page.unroute("**/api/auth/logout")
   await page.getByRole("button", { name: "Sign out", exact: true }).click()

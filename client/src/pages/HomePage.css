@@ -1,67 +1,215 @@
-/*
- * Home page styles (/home), imported by HomePage.tsx.
- *
- * Vite loads plain .css imports globally, so keep every selector under the
- * home- prefix. Rules here are unlayered, so they override Tailwind classes.
- * The site's theme variables from index.css are available here:
- * --color-paper, --color-ink, --color-ink-muted, --color-line, --color-brand,
- * --font-serif, and --font-hand.
- */
-
-/* Page */
 .home-page {
+  padding-block: 36px 64px;
+  color: var(--color-ink);
+  font-family: var(--font-serif);
 }
-
-/* Intro */
-.home-intro {
+.home-eyebrow,
+.home-intro-copy,
+.home-search,
+.home-section-caption,
+.home-company-card p,
+.home-ticker,
+.home-active-filters,
+.home-catalog-state,
+.home-pagination,
+.home-note {
+  font-family: Arial, sans-serif;
 }
 .home-eyebrow {
-}
-.home-status-dot {
+  color: var(--color-ink-muted);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
 }
 .home-title {
+  margin-top: 12px;
+  font-size: clamp(36px, 5vw, 60px);
+  line-height: 1.1;
 }
 .home-intro-copy {
+  max-width: 650px;
+  margin-top: 16px;
+  color: var(--color-ink-muted);
+  font-size: 14px;
+  line-height: 1.7;
 }
-
-/* Company search */
 .home-search {
-}
-.home-search-copy {
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  padding-block: 30px;
 }
 .home-search-form {
+  flex: 1;
+  min-width: 0;
 }
-.home-search-controls {
+.home-search label {
+  display: block;
+  margin-bottom: 9px;
+  font-size: 12px;
+}
+.home-search-controls,
+.home-search-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 .home-search-input {
+  flex: 1;
+  min-width: 0;
+  padding-inline: 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  background: var(--color-paper);
+}
+.home-search-input svg {
+  flex-shrink: 0;
+  color: var(--color-ink-muted);
+}
+.home-search-input input {
+  width: 100%;
+  min-width: 0;
+  padding-block: 12px;
+  font-size: 14px;
+}
+.home-search-button,
+.home-pagination button {
+  padding: 12px 16px;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  font-size: 13px;
 }
 .home-search-button {
+  color: var(--color-paper);
+  background: var(--color-ink);
+  border-color: var(--color-ink);
 }
-.home-field-hint {
+.home-sector-filter {
+  width: min(260px, 100%);
 }
-.home-field-error {
+.home-sector-filter select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  background: var(--color-paper);
+  font-size: 14px;
 }
-
-/* Company shortcuts */
-.home-companies {
+.home-section-heading,
+.home-active-filters,
+.home-pagination,
+.home-pagination > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 .home-section-heading {
+  padding-block: 20px;
+  border-top: 1px solid var(--color-ink);
+}
+.home-section-heading h2 {
+  font-size: 28px;
 }
 .home-section-caption {
+  color: var(--color-ink-muted);
+  font-size: 12px;
+}
+.home-active-filters {
+  padding-bottom: 20px;
+  font-size: 13px;
+}
+.home-active-filters button {
+  color: var(--color-brand);
+  text-decoration: underline;
 }
 .home-company-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
 }
 .home-company-card {
+  padding: 20px;
+  border: 1px solid var(--color-line);
+  border-radius: 4px;
+  background: var(--color-paper);
+  overflow-wrap: anywhere;
+}
+.home-company-card:hover {
+  border-color: var(--color-brand);
 }
 .home-company-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+.home-company-card-top svg {
+  color: var(--color-brand);
 }
 .home-ticker {
+  font-size: 12px;
+  font-weight: 700;
 }
-
-/* Closing note */
+.home-company-card h3 {
+  margin-block: 16px 10px;
+  font-size: 25px;
+  line-height: 1.2;
+}
+.home-company-card p {
+  color: var(--color-ink-muted);
+  font-size: 12px;
+  line-height: 1.6;
+}
+.home-company-card .home-company-meta {
+  margin-top: 12px;
+  font-size: 11px;
+}
+.home-catalog-state {
+  padding-block: 40px;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.home-catalog-state button {
+  margin-top: 16px;
+}
+.home-pagination {
+  margin-top: 24px;
+  padding-block: 16px;
+  border-top: 1px solid var(--color-line);
+  font-size: 12px;
+}
+.home-pagination button:disabled {
+  cursor: default;
+}
 .home-note {
+  margin-top: 32px;
+  padding-top: 20px;
+  border-top: 1px solid var(--color-line);
+  color: var(--color-ink-muted);
+  font-size: 12px;
+  line-height: 1.7;
 }
-.home-note-mark {
+@media (max-width: 900px) {
+  .home-company-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }
-.home-note-link {
+@media (max-width: 650px) {
+  .home-search {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .home-sector-filter {
+    width: 100%;
+  }
+  .home-company-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .home-search-controls {
+    gap: 8px;
+  }
+  .home-search-button {
+    padding-inline: 12px;
+  }
 }

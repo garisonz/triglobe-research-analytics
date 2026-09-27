@@ -98,7 +98,7 @@ npm test
 ```
 
 Browser tests start their own frontend on port 5174 and FastAPI on port 8001.
-They use an in-memory SQLite database, never the development PostgreSQL database.
+They use a temporary SQLite database file with independent connections for concurrent requests, never the development PostgreSQL database.
 The test runner currently uses WSL/Linux shell commands. Coverage includes
 registration, duplicate accounts, invalid credentials, protected route redirects,
 reload persistence, cookie flags, mobile forms, session revocation, and network

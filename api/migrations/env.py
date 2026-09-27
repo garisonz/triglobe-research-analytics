@@ -1,6 +1,7 @@
 from alembic import context
 
 from app.auth import models  # Registers the models with Base
+from app.market import models as market_models  # Registers historical tables
 from app.database import Base, database_url, engine
 
 target_metadata = Base.metadata

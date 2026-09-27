@@ -6,12 +6,16 @@ from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.orm import Session
 from app.auth.dependencies import CurrentUser
 from app.auth.setup import setup_auth
+from app.routers.market import router as market_router
+from app.market.catalog_api import router as catalog_router
 
 from app.database import get_db
 
 
 app = FastAPI(title="Backend API")
 setup_auth(app)
+app.include_router(market_router)
+app.include_router(catalog_router)
 
 DatabaseSession = Annotated[Session, Depends(get_db)]
 

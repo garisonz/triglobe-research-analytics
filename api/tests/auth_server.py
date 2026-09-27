@@ -1,5 +1,7 @@
-"""Isolated auth app for tests. No connection to the development database."""
+"""Isolated auth app for browser tests. Never connects to the development database."""
 import os
+from pathlib import Path
+from tempfile import TemporaryDirectory
 
 os.environ.update(
     POSTGRES_DB="auth_test",
@@ -11,15 +13,17 @@ os.environ.update(
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import Session
-from sqlalchemy.pool import StaticPool
 
 from app.database import Base, get_db
 from app.main import app
 
+# Parallel auth, profile, and history requests must not share one SQLite connection.
+# A temporary database keeps the tests isolated while allowing independent sessions.
+test_directory = TemporaryDirectory(prefix="triglobe-auth-tests-")
+test_database_path = Path(test_directory.name) / "auth.sqlite"
 engine = create_engine(
-    "sqlite://",
+    f"sqlite:///{test_database_path}",
     connect_args={"check_same_thread": False},
-    poolclass=StaticPool,
 )
 Base.metadata.create_all(engine)
 

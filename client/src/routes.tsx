@@ -1,4 +1,4 @@
-import { Link, Route, Routes, useParams } from "react-router"
+import { Link, Route, Routes } from "react-router"
 import RequireAuth from "./auth/RequireAuth"
 import { useAuth } from "./auth/auth-context"
 import { lenses } from "./content/lenses"
@@ -8,6 +8,7 @@ import AuthPage from "./pages/AuthPage"
 import HomePage from "./pages/HomePage"
 import LandingPage from "./pages/LandingPage"
 import LensPage from "./pages/LensPage"
+import StockPage from "./pages/StockPage"
 import {
   eyebrow,
   pageIntro,
@@ -16,23 +17,6 @@ import {
   primaryButton,
   textLink,
 } from "./lib/styles"
-
-function StockPage() {
-  const { symbol } = useParams()
-  return (
-    <section className={pageIntro}>
-      <p className={eyebrow}>Company research</p>
-      <h1 className={pageTitle}>{symbol?.toUpperCase()}</h1>
-      <p className={pageIntroCopy}>
-        This company workspace is ready for future research and market data.
-        Live data is not connected yet.
-      </p>
-      <Link className={textLink} to="/home">
-        Back to home &rarr;
-      </Link>
-    </section>
-  )
-}
 
 function SettingsPage() {
   const { user } = useAuth()

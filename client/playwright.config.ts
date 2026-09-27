@@ -13,8 +13,7 @@ export default defineConfig({
       reuseExistingServer: false,
     },
     {
-      command:
-        "API_PROXY_TARGET=http://127.0.0.1:8001 npm run dev -- --host localhost --port 5174",
+      command: `API_PROXY_TARGET=http://127.0.0.1:8001 "${process.execPath}" node_modules/vite/bin/vite.js --host localhost --port 5174`,
       url: "http://localhost:5174",
       reuseExistingServer: false,
     },
